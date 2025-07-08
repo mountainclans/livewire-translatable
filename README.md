@@ -54,9 +54,9 @@ php artisan vendor:publish --tag="livewire-translatable-views"
 - `ContentLanguages::all()` - позволяет получить массив всех языков, на которые переводится приложение в формате `ключ` => `название языка`.
 - `ContentLanguages::default()` - возвращает ключ первого языка, заданного в конфигурации.
 
-### Трейты
+## Трейты
 
-#### FilledTranslatableFields 
+### Трейт FilledTranslatableFields 
 Трейт позволяет задать пустые стартовые значения для всех языков, на которые переводится сайт, для только что инициализированного поля. Полезен при использовании с редактором, который требует строку при инициализации значения. 
 
 **Использование:**
@@ -78,6 +78,33 @@ public function mount(?string $blogId = null): void
 ```
 
 Поле модели (в данном случае, `content`) обязательно должно быть указано в списке `$translatable` атрибутов модели.
+
+### Трейт RequireTranslations
+
+Предоставляет Livewire-компоненту метод `requireTranslations`, позволяющий убедиться при валидации поля, что у него есть переводы полей.
+
+```php
+# Your livewire component
+
+public function saveSomething(): void
+{
+    $this->validate([
+            'categoryId' => [
+                'nullable',
+                'exists:blog_categories,id',
+            ],
+            ...$this->requireTranslations('title', true, true, 10, 255),
+    ]);
+}
+```
+
+Метод принимает следующие параметры:
+
+- string `$fieldName` - поле компонента, которое валидируем;
+- bool `$isOptional` - можно ли оставить его пустым;
+- bool `$requireDefaultLanguage` - требовать ли заполнения хотя бы ключа по умолчанию (получаемого из `ContentLanguages::default()`);
+- int `$minLength` - минимальная длина поля;
+- int `$maxLength` - максимальная длина поля.
 
 ## Изменения
 
