@@ -10,6 +10,14 @@ UI компонент для интуитивной работы с перево
 composer require mountainclans/livewire-translatable
 ```
 
+_Обратите внимание, что для корректной стилизации в вашем проекте должен использоваться TailwindCSS._
+
+Добавьте в `tailwind.config.js` в секцию `content`:
+
+```js
+'./vendor/mountainclans/livewire-translatable/resources/views/**/*.blade.php'
+```
+
 
 Опубликуйте файл конфигурации и задайте в нём нужные языки, на которые переводится ваш сайт:
 
