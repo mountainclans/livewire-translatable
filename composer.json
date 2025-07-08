@@ -35,14 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MountainClans\\LivewireTranslatable\\": "src/",
-            "MountainClans\\LivewireTranslatable\\Database\\Factories\\": "database/factories/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "MountainClans\\LivewireTranslatable\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "MountainClans\\LivewireTranslatable\\": "src/"
         }
     },
     "scripts": {
@@ -66,7 +59,7 @@
                 "MountainClans\\LivewireTranslatable\\LivewireTranslatableServiceProvider"
             ],
             "aliases": {
-                "LivewireTranslatable": "MountainClans\\LivewireTranslatable\\Facades\\LivewireTranslatable"
+                "ContentLanguages": "MountainClans\\LivewireTranslatable\\Facades\\ContentLanguages"
             }
         }
     },
