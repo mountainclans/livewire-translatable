@@ -106,7 +106,7 @@ public function saveSomething(): void
 - int `$minLength` - минимальная длина поля;
 - int `$maxLength` - максимальная длина поля.
 
-### Трейт
+### Трейт LogTranslatableAttributes
 
 Позволяет корректно логировать изменения в переводимых полях модели с использованием пакета [Spatie Activitylog](https://github.com/spatie/laravel-activitylog). 
 
