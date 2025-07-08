@@ -1,6 +1,5 @@
 <?php
 
-// config for MountainClans/LivewireTranslatable
 return [
-
+    'content_languages' => 'en=English,ru=Русский'
 ];
