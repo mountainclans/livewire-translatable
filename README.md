@@ -45,7 +45,7 @@ php artisan vendor:publish --tag="livewire-translatable-views"
 
 Каждому из переводимых полей необходимо добавить атрибут `translatable`. 
 
-Используйте `<x-ui.input>` из [пакета UI]() и `<x-ui.tiptap>`.
+Используйте `<x-ui.input>` из [пакета UI](https://github.com/mountainclans/livewire-ui?tab=readme-ov-file#input) и `<x-ui.tiptap>`.
 
 ### ContentLanguages
 
