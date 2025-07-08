@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'content_languages' => 'en=English,ru=Русский'
+    'content_languages' => env('CONTENT_LANGUAGES', 'en=English,ru=Русский'),
 ];
