@@ -54,6 +54,31 @@ php artisan vendor:publish --tag="livewire-translatable-views"
 - `ContentLanguages::all()` - позволяет получить массив всех языков, на которые переводится приложение в формате `ключ` => `название языка`.
 - `ContentLanguages::default()` - возвращает ключ первого языка, заданного в конфигурации.
 
+### Трейты
+
+#### FilledTranslatableFields 
+Трейт позволяет задать пустые стартовые значения для всех языков, на которые переводится сайт, для только что инициализированного поля. Полезен при использовании с редактором, который требует строку при инициализации значения. 
+
+**Использование:**
+
+```php
+# Your livewire component
+//...
+use MountainClans\LivewireTranslatable\Traits\FilledTranslatableFields;
+
+public function mount(?string $blogId = null): void
+    {
+        if ($this->blogId) {
+            $this->blog = Blog::findOrFail($this->blogId);
+
+            $this->content = $this->blog->getAllTranslations('content');
+            //...
+        }
+    }
+```
+
+Поле модели (в данном случае, `content`) обязательно должно быть указано в списке `$translatable` атрибутов модели.
+
 ## Изменения
 
 Получите больше информации об изменениях в пакете, прочитав [CHANGELOG](CHANGELOG.md).
