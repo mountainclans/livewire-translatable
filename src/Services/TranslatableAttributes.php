@@ -113,17 +113,15 @@ class TranslatableAttributes
             if ($tag->hasAttribute('name')) {
                 $oldName = $tag->getAttribute('name');
                 $tag->setAttribute('name', $oldName . '_' . $lang); // обновим name
-                $insertPosition = self::INSERT_POSITION_NEXT_SIBLING;
             } elseif ($tag->hasAttribute('data-model')) {
                 $oldName = $tag->getAttribute('data-model');
-                $insertPosition = self::INSERT_POSITION_LAST_CHILD_IN_PARENT;
             }
 
             /**
              * Ошибка валидации может присутствовать как в переводимом поле, так и поле, содержащем
              * все переводы. Обрабатываются оба этих варианта.
              */
-            if (!empty($oldName) && !empty($insertPosition)) {
+            if (!empty($oldName)) {
                 $translatableErrorKey = $oldName . '.' . $lang;
                 foreach ([$oldName, $translatableErrorKey] as $errorKey) {
                     if ($errors->has($errorKey)) {
@@ -131,11 +129,7 @@ class TranslatableAttributes
                         $newElement->setAttribute('class', 'mt-2 text-sm text-red-600 dark:text-red-500');
                         $newElement->setAttribute('error-bag', $errorKey);
 
-                        if ($insertPosition == self::INSERT_POSITION_NEXT_SIBLING) {
-                            $tag->parentNode->insertBefore($newElement, $tag->nextSibling);
-                        } elseif ($insertPosition == self::INSERT_POSITION_LAST_CHILD_IN_PARENT) {
-                            $tag->parentNode->parentNode->appendChild($newElement);
-                        }
+                        $tag->parentNode->parentNode->appendChild($newElement);
                     }
                 }
             }
