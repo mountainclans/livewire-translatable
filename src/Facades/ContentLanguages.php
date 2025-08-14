@@ -1,6 +1,6 @@
 <?php
 
-namespace MountainClans\LivewireSelect\Facades;
+namespace MountainClans\LivewireTranslatable\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
