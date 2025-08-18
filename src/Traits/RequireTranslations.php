@@ -10,8 +10,8 @@ trait RequireTranslations
         string $fieldName,
         bool   $isOptional = false,
         bool   $requireDefaultLanguage = false,
-        int    $minLength = null,
-        int    $maxLength = null
+        ?int    $minLength = null,
+        ?int    $maxLength = null
     ): array
     {
         $languages = ContentLanguages::all();
