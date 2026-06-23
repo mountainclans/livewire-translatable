@@ -8,18 +8,17 @@ trait RequireTranslations
 {
     public function requireTranslations(
         string $fieldName,
-        bool   $isOptional = false,
-        bool   $requireDefaultLanguage = false,
-        ?int    $minLength = null,
-        ?int    $maxLength = null
-    ): array
-    {
+        bool $isOptional = false,
+        bool $requireDefaultLanguage = false,
+        ?int $minLength = null,
+        ?int $maxLength = null
+    ): array {
         $languages = ContentLanguages::all();
         $rules = [];
 
         foreach ($languages as $locale => $language) {
             if (
-                !$isOptional
+                ! $isOptional
                 || (
                     $requireDefaultLanguage
                     && $locale === ContentLanguages::default()
@@ -35,12 +34,12 @@ trait RequireTranslations
                 ];
             }
 
-            if (!is_null($minLength) && $minLength > 0) {
-                $rules["$fieldName.$locale"][] = 'min:' . $minLength;
+            if (! is_null($minLength) && $minLength > 0) {
+                $rules["$fieldName.$locale"][] = 'min:'.$minLength;
             }
 
-            if (!is_null($maxLength) && $maxLength > 0) {
-                $rules["$fieldName.$locale"][] = 'max:' . $maxLength;
+            if (! is_null($maxLength) && $maxLength > 0) {
+                $rules["$fieldName.$locale"][] = 'max:'.$maxLength;
             }
         }
 

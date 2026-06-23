@@ -16,10 +16,10 @@ trait FilledTranslatableFields
         }
 
         foreach (ContentLanguages::all() as $languageKey => $language) {
-            if (!isset($source[$languageKey])) {
+            if (! isset($source[$languageKey])) {
                 $source[$languageKey] = '';
             }
-        };
+        }
 
         return $source;
     }

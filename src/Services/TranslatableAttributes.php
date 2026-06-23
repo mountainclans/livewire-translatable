@@ -9,6 +9,7 @@ use Illuminate\Support\ViewErrorBag;
 class TranslatableAttributes
 {
     public const INSERT_POSITION_NEXT_SIBLING = 'next_sibling';
+
     public const INSERT_POSITION_LAST_CHILD_IN_PARENT = 'last_child_in_parent';
 
     public static function getTabsWithErrors(string $html, ViewErrorBag $errors): array
@@ -28,11 +29,12 @@ class TranslatableAttributes
                         $oldName = $tag->getAttribute('data-model');
                     }
 
-                    if (!empty($oldName)) {
-                        $errorKey = $oldName . '.' . $langCode;
+                    if (! empty($oldName)) {
+                        $errorKey = $oldName.'.'.$langCode;
                         if ($errors->has($errorKey)) {
                             $tabsWithErrors[] = $langCode;
-                            continue(2);
+
+                            continue 2;
                         }
                     }
                 }
@@ -43,10 +45,6 @@ class TranslatableAttributes
     }
 
     /**
-     * @param string $html
-     * @param string $lang
-     * @param ViewErrorBag $errors
-     * @return string
      * @throws DOMException
      */
     public static function makeWireablesTagsTranslatable(string $html, string $lang, ViewErrorBag $errors): string
@@ -56,7 +54,7 @@ class TranslatableAttributes
         $htmlTags = $doc->getElementsByTagName('*');
 
         foreach ($htmlTags as $tag) {
-            if (!$tag->hasAttribute('translatable')) {
+            if (! $tag->hasAttribute('translatable')) {
                 continue;
             }
 
@@ -66,7 +64,7 @@ class TranslatableAttributes
              * ключ wire:model на локализованный ключ массива, куда будут записываться переводы поля.
              */
             if ($tag->hasAttribute('wire:model')) {
-                $wireModel = $tag->getAttribute('wire:model') . '.' . $lang;
+                $wireModel = $tag->getAttribute('wire:model').'.'.$lang;
                 $tag->setAttribute('wire:model', $wireModel);
             }
 
@@ -83,7 +81,7 @@ class TranslatableAttributes
                 $template = $tag->getAttribute('data-x-template');
                 $tag->setAttribute('x-data', str_replace(
                     '::replace::',
-                    $tag->getAttribute('data-model') . '.' . $lang,
+                    $tag->getAttribute('data-model').'.'.$lang,
                     $template
                 ));
             }
@@ -93,7 +91,7 @@ class TranslatableAttributes
              */
             if ($tag->hasAttribute('id')) {
                 $oldId = $tag->getAttribute('id');
-                $newId = $oldId . '_' . $lang;
+                $newId = $oldId.'_'.$lang;
                 $tag->setAttribute('id', $newId);
 
                 $labels = $doc->getElementsByTagName('label');
@@ -108,11 +106,10 @@ class TranslatableAttributes
              * Если тег - обычный input, у него будет задано имя и мы будем ориентироваться на него
              * для показа ошибок поля. Если атрибут - div для текстового редактора, то мы
              * ориентируемся на атрибут data-model
-             *
              */
             if ($tag->hasAttribute('name')) {
                 $oldName = $tag->getAttribute('name');
-                $tag->setAttribute('name', $oldName . '_' . $lang); // обновим name
+                $tag->setAttribute('name', $oldName.'_'.$lang); // обновим name
             } elseif ($tag->hasAttribute('data-model')) {
                 $oldName = $tag->getAttribute('data-model');
             }
@@ -121,8 +118,8 @@ class TranslatableAttributes
              * Ошибка валидации может присутствовать как в переводимом поле, так и поле, содержащем
              * все переводы. Обрабатываются оба этих варианта.
              */
-            if (!empty($oldName)) {
-                $translatableErrorKey = $oldName . '.' . $lang;
+            if (! empty($oldName)) {
+                $translatableErrorKey = $oldName.'.'.$lang;
                 foreach ([$oldName, $translatableErrorKey] as $errorKey) {
                     if ($errors->has($errorKey)) {
                         $newElement = $doc->createElement('p', $errors->first($errorKey));
@@ -140,7 +137,7 @@ class TranslatableAttributes
 
     private static function initDomParser(string $html): DOMDocument
     {
-        $doc = new DOMDocument();
+        $doc = new DOMDocument;
 
         /**
          * Для подавления предупреждений при парсинге включаем режим внутренних ошибок.
@@ -151,7 +148,7 @@ class TranslatableAttributes
         libxml_use_internal_errors(true);
 
         // Важно: prepend UTF-8 declaration
-        $doc->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $doc->loadHTML('<?xml encoding="UTF-8">'.$html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         libxml_clear_errors();
 

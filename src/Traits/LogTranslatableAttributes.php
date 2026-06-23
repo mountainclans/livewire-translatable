@@ -18,7 +18,7 @@ trait LogTranslatableAttributes
     {
         if (
             $eventName != 'deleted' ||
-            method_exists($this, 'isForceDeleting') && !$this->isForceDeleting()
+            method_exists($this, 'isForceDeleting') && ! $this->isForceDeleting()
         ) {
             $translatableKeys = $this->getTranslatableAttributes();
             $dirtyProps = $this->getDirty();
@@ -40,8 +40,8 @@ trait LogTranslatableAttributes
                         $newValue = $newValuesArray[$lang];
 
                         if ($oldValue != $newValue) {
-                            $old[$dirtyKey . '_' . $lang] = $oldValue;
-                            $new[$dirtyKey . '_' . $lang] = $newValue;
+                            $old[$dirtyKey.'_'.$lang] = $oldValue;
+                            $new[$dirtyKey.'_'.$lang] = $newValue;
                         }
                     }
                 } else {

@@ -8,7 +8,7 @@ class ContentLanguages
 
     public static function all(): array
     {
-        if (!empty($languages)) {
+        if (! empty($languages)) {
             return $languages;
         }
 
@@ -17,7 +17,7 @@ class ContentLanguages
         $result = [];
 
         foreach ($languagesRows as $languageRow) {
-            $row = explode("=", $languageRow);
+            $row = explode('=', $languageRow);
             $result[$row[0]] = $row[1];
         }
 
